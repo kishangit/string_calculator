@@ -62,5 +62,13 @@ RSpec.describe StringCalculator do
       expect(empty_string).not_to receive(:start_with?)
       expect(calculator.add(empty_string)).to eq(0)
     end
+
+    it "throws an exception for negative numbers" do
+      expect{ calculator.add("1,-2,3") }.to raise_error("Negative numbers not allowed: -2")
+    end
+
+    it "throws an exception for negative numbers and print all negative numbers" do
+      expect{ calculator.add("//#\n1#-2#3#4#5#-6#-7#8") }.to raise_error("Negative numbers not allowed: -2, -6, -7")
+    end
   end
 end
