@@ -4,7 +4,6 @@ require_relative '../lib/string_calculator'
 RSpec.describe StringCalculator do
   describe "#add" do
     let(:calculator) { StringCalculator.new }
-    let(:test_input) { "10,20" }
 
     it "checks method exists or not" do
       expect( calculator.methods.include?(:add) ).to eq(true)
@@ -31,8 +30,9 @@ RSpec.describe StringCalculator do
     end
 
     it "mocks that split is called when we have comma separated string as an input" do
-      expect(test_input).to receive(:split).and_return(['10','20'])
-      expect(calculator.add(test_input)).to eq(30)
+      input = "10,20"
+      expect(input).to receive(:split).and_return(['10','20'])
+      expect(calculator.add(input)).to eq(30)
     end
 
     it "returns the sum of multiple numbers" do
@@ -45,6 +45,22 @@ RSpec.describe StringCalculator do
 
     it "handles multiple new line characters and multiple numbers with coma and newline character" do
       expect(calculator.add("1,2\n,3,4,5\n6")).to eq(21)
+    end
+
+    it "handle different delimiters properly" do
+      expect(calculator.add("//;\n1;2;3")).to eq(6)
+    end
+
+    it "mocks and check that start_with? called if input string is not empty" do
+      input = "//@\n10@20@30"
+      expect(input).to receive(:start_with?).and_return(true)
+      expect(calculator.add(input)).to eq(60)
+    end
+
+    it "mocks and check that start_with? not called when input string is empty" do
+      empty_string = ''
+      expect(empty_string).not_to receive(:start_with?)
+      expect(calculator.add(empty_string)).to eq(0)
     end
   end
 end
