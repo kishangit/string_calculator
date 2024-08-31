@@ -4,6 +4,7 @@ require_relative '../lib/string_calculator'
 RSpec.describe StringCalculator do
   describe "#add" do
     let(:calculator) { StringCalculator.new }
+    let(:test_input) { "10,20" }
 
     it "checks method exists or not" do
       expect( calculator.methods.include?(:add) ).to eq(true)
@@ -23,6 +24,15 @@ RSpec.describe StringCalculator do
 
     it "checks output is Number when valid single number is passed" do
       expect(calculator.add('55').class).to eq(Integer)
+    end
+
+    it "returns the sum of two numbers" do
+      expect(calculator.add('5,15')).to eq(20)
+    end
+
+    it "mocks that split is called when we have comma separated string as an input" do
+      expect(test_input).to receive(:split).and_return(['10','20'])
+      expect(calculator.add(test_input)).to eq(30)
     end
   end
 end
