@@ -34,5 +34,9 @@ RSpec.describe StringCalculator do
       expect(test_input).to receive(:split).and_return(['10','20'])
       expect(calculator.add(test_input)).to eq(30)
     end
+
+    it "returns the sum of multiple numbers" do
+      expect(calculator.add('1,2,3')).to eq(6)
+    end
   end
 end
