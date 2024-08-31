@@ -27,3 +27,13 @@ cd string_calculator
 ```
 bundle install
 ```
+
+## Run test cases
+1. Go to the project directory
+```
+cd string_calculator
+```
+2. Run test cases using RSpec
+```
+rspec spec/
+```
