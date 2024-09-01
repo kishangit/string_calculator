@@ -70,5 +70,10 @@ RSpec.describe StringCalculator do
     it "throws an exception for negative numbers and print all negative numbers" do
       expect{ calculator.add("//#\n1#-2#3#4#5#-6#-7#8") }.to raise_error("Negative numbers not allowed: -2, -6, -7")
     end
+
+    it "mocks that extract_delimiter_and_numbers method is called at lease once" do
+      expect(calculator).to receive(:extract_delimiter_and_numbers).with("10,20").and_return([',', '10,20'])
+      expect(calculator.add("10,20")).to eq(30)
+    end
   end
 end
