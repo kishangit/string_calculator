@@ -75,5 +75,10 @@ RSpec.describe StringCalculator do
       expect(calculator).to receive(:extract_delimiter_and_numbers).with("10,20").and_return([',', '10,20'])
       expect(calculator.add("10,20")).to eq(30)
     end
+
+    it "mocks that check_for_negatives method is called at least once" do
+      expect(calculator).to receive(:check_for_negatives).with([25,50,25,25])
+      expect(calculator.add("//%\n25%50%25%25")).to eq(125)
+    end
   end
 end

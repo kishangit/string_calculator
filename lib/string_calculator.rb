@@ -4,8 +4,7 @@ class StringCalculator
 
     delimiter, numbers = extract_delimiter_and_numbers(numbers)
     nums = numbers.split(delimiter).map(&:to_i)
-    negatives = nums.select { |n| n < 0 }
-    raise "Negative numbers not allowed: #{negatives.join(', ')}" if negatives.any?
+    check_for_negatives(nums)
 
     nums.sum
   end
@@ -20,5 +19,10 @@ class StringCalculator
       delimiter = /[\n,]/
     end
     [delimiter, numbers]
+  end
+
+  def check_for_negatives(nums)
+    negatives = nums.select { |n| n < 0 }
+    raise "Negative numbers not allowed: #{negatives.join(', ')}" if negatives.any?
   end
 end
